@@ -1,3 +1,17 @@
-[gd_scene format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/actor/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/screens/background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/screens/foreground.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/levels/Main.gd" type="Script" id=4]
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="background" parent="." instance=ExtResource( 2 )]
+
+[node name="foreground" parent="." instance=ExtResource( 3 )]
+position = Vector2( 6.53479, 944.897 )
+
+[node name="player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 136.377, 943.285 )
