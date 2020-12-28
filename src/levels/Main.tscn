@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/actor/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/screens/background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/screens/foreground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/levels/Main.gd" type="Script" id=4]
+[ext_resource path="res://src/Util/spawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/objects/bone.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/objects/barrel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/screens/Score.tscn" type="PackedScene" id=8]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 4 )
@@ -15,3 +19,9 @@ position = Vector2( 6.53479, 944.897 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 136.377, 943.285 )
+
+[node name="spawner" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1884.84, 929.822 )
+scenes = [ ExtResource( 7 ), ExtResource( 6 ) ]
+
+[node name="Score" parent="." instance=ExtResource( 8 )]

@@ -19,6 +19,10 @@ config/name="endlessRunner"
 run/main_scene="res://src/levels/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameData="*res://src/AutoLoad/gameData.gd"
+
 [display]
 
 window/size/width=1920

@@ -1,30 +1,44 @@
 extends KinematicBody2D
 
+var velocity = Vector2.ZERO
 
-export var jump_velocity = 3500.0
+export var jump_velocity = 1500.0
 export var gravity_scale = 20.0
 
 onready var animation = $AnimatedSprite
 
-var velocity: Vector2 = Vector2.ZERO
-const FLOOR_NORMAL = Vector2(0, -1)
+var can_jump: bool = true
 
 func _ready():
+	GameData.reset()
+ 
+# warning-ignore:return_value_discarded
+	GameData.connect("killplayer",self,"kill_player")
 	animation.play("run")
 
 func _physics_process(delta):
 	velocity.y += gravity_scale	
-	move_and_slide(velocity*delta,FLOOR_NORMAL)
-	if is_on_floor() && animation.animation !="run":
-		animation.play("run")
+	var _x = move_and_collide(velocity*delta)
 		
 func _input(event):
 	velocity = Vector2.ZERO
-	if event.is_action_pressed("jump"):
-		
-		if is_on_floor():
-			
-			velocity.y-=jump_velocity
-			animation.play("Jump")
-			animation.frame=0
- 
+	if can_jump && event.is_action_pressed("jump"):
+		velocity.y-=jump_velocity
+		animation.play("Jump")
+
+
+func _on_Area2D_body_entered(body):
+	print(body)
+	if body is StaticBody2D:
+		can_jump = true
+		animation.play("run")
+
+
+func _on_Area2D_body_exited(body):
+	if body is StaticBody2D:
+		print("Left")
+		can_jump = false
+
+func kill_player():
+	#play death animation
+	queue_free()
