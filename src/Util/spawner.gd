@@ -10,7 +10,11 @@ func _ready():
 	$Timer.wait_time = TimeOutFloor
 	$Timer.one_shot = true
 	$Timer.start(TimeOutFloor)
+	GameData.connect("killplayer",self,"player_deied")
 
+func player_deied():
+	$Timer.stop()
+	
 
 func _on_Timer_timeout():
 	random_scene.randomize()
