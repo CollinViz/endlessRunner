@@ -29,12 +29,24 @@ func _physics_process(delta):
 	var _x = move_and_collide(velocity*delta)
 		
 func _input(event):
+	
 	velocity = Vector2.ZERO
+	
+	if can_jump && event is InputEventScreenTouch:
+		if event.pressed:
+			doJump()
+	
+	if can_jump && event is InputEventMouseButton:
+		if event.pressed:
+			doJump()
+		
 	if can_jump && event.is_action_pressed("jump"):
-		velocity.y-=jump_velocity
-		animation.play("Jump")
-		jump_sound.play()
+		doJump()
 
+func doJump():
+	velocity.y-=jump_velocity
+	animation.play("Jump")
+	jump_sound.play()
 
 func _on_Area2D_body_entered(body):
 	print(body)
